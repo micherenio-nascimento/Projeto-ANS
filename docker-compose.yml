@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: ans_postgres
+    environment:
+      POSTGRES_USER: ans_user
+      POSTGRES_PASSWORD: ans_password
+      POSTGRES_DB: ans_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./init-scripts:/docker-entrypoint-initdb.d
+      - ./data:/data
+    restart: unless-stopped
+
+volumes:
+  pgdata:
